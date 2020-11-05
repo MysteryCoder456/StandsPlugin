@@ -1,11 +1,11 @@
 package com.mysterycoder456.standsplugin.commands;
 
-import com.mysterycoder456.standsplugin.Main;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.mysterycoder456.standsplugin.Main;
 
 public class HelloCommand implements CommandExecutor {
 	
