@@ -1,0 +1,9 @@
+main: com.mysterycoder456.standsplugin.Main
+name: JoJoStands
+version: 1.0.0
+description: A plugin that brings Stands from JJBA to Minecraft
+author: rehatbir.singh@gmail.com
+
+commands:
+  hello:
+    description: Say hello to the plugin, but mostly used for testing if the plugin is working
