@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 public class HelloCommand implements CommandExecutor {
 	
+	@SuppressWarnings("unused")
 	private Main plugin;
 	
 	public HelloCommand(Main plugin) {
