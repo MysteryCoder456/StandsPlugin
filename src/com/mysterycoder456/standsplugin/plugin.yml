@@ -1,0 +1,9 @@
+name: JoJoStands
+version: 1.0
+author: MysteryCoder456
+main: com.mysterycoder456.standsplugin.Main
+description: This plugin brings Stands from the anime JoJo's Bizzare Adventure to Minecraft
+
+commands:
+  hello:
+   description: Says hello to the plugin. Usually just used for testing if the plugin is working correctly.
