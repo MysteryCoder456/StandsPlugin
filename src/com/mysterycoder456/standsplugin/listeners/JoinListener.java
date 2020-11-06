@@ -21,14 +21,14 @@ public class JoinListener implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
+		Player player = e.getPlayer();
 		FileConfiguration config = plugin.getConfig();
 		
-		if (!p.hasPlayedBefore()) {
-			Bukkit.broadcastMessage(Utils.chat(config.getString("firstTimeJoinMessage").replace("<player>", p.getName())));
+		if (!player.hasPlayedBefore()) {
+			e.setJoinMessage(Utils.chat(config.getString("firstTimeJoinMessage").replace("<player>", player.getName())));
 		}
 		else {
-			Bukkit.broadcastMessage(Utils.chat(config.getString("joinMessage").replace("<player>", p.getName())));
+			e.setJoinMessage(Utils.chat(config.getString("joinMessage").replace("<player>", player.getName())));
 		}
 	}
 
