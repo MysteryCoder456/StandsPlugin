@@ -12,7 +12,6 @@ import com.mysterycoder456.standsplugin.listeners.utils.Utils;
 
 public class JoinListener implements Listener {
 	
-	@SuppressWarnings("unused")
 	private Main plugin;
 	
 	public JoinListener(Main plugin) {
