@@ -36,9 +36,9 @@ public class StandUserListener implements Listener {
 		
 //		Star Platinum
 		if (itemInPlayerHand.getType() == Material.IRON_INGOT) {
-			double totalDamage = 16;
-			int hitCount = 6;
-			long attackDuration = 18;
+			double damagePerHit = 4.5;
+			int hitCount = 5;
+			long attackDuration = 20;
 			double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
 			
 			Vector knockbackVector = player.getLocation().getDirection().normalize();
@@ -53,7 +53,7 @@ public class StandUserListener implements Listener {
 
 				@Override
 				public void run() {
-					((Damageable) rightClickedEntity).damage(totalDamage / hitCount);
+					((Damageable) rightClickedEntity).damage(damagePerHit);
 					rightClickedEntity.setVelocity(knockbackVector);
 				}
 				
