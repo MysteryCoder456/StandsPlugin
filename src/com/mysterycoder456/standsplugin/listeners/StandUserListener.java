@@ -41,10 +41,11 @@ public class StandUserListener implements Listener {
 			long attackDuration = 20;
 			double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
 			
+			Vector entityVelocity = rightClickedEntity.getVelocity();
 			Vector knockbackVector = player.getLocation().getDirection().normalize();
-			knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount);
-			knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount);
-			knockbackVector.setZ((knockbackVector.getZ() * knockbackMultiplier) / hitCount);
+			knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount + entityVelocity.getX());
+			knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount + entityVelocity.getY());
+			knockbackVector.setZ((knockbackVector.getZ() * knockbackMultiplier) / hitCount + entityVelocity.getZ());
 			
 			Bukkit.broadcastMessage(Utils.chat("&a" + player.getName() + "'s Star Platinum: &7ORA ORA ORA ORA ORA!"));
 			

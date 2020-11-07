@@ -2,4 +2,4 @@ firstTimeJoinMessage: "&7Stand User &a<player> &7has joined the server for the f
 joinMessage: "&7Stand User &e<player> &7has joined the server!"
 
 # Stand Settings
-knockbackMultiplier: 3
+knockbackMultiplier: 4
