@@ -29,18 +29,17 @@ public class StandUserListener implements Listener {
 	@EventHandler
 	public void onPlayerInteractEvent(PlayerInteractEntityEvent e) {
 		Player player = e.getPlayer();
-		
+		Entity rightClickedEntity = e.getRightClicked();
+
 		@SuppressWarnings("deprecation")
 		ItemStack itemInPlayerHand = player.getItemInHand();
 		
 //		Star Platinum
 		if (itemInPlayerHand.getType() == Material.IRON_INGOT) {
 			double totalDamage = 16;
-			int hitCount = 4;
-			long attackDuration = 25;
+			int hitCount = 6;
+			long attackDuration = 18;
 			double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
-			
-			Entity rightClickedEntity = e.getRightClicked();
 			
 			Vector knockbackVector = player.getLocation().getDirection().normalize();
 			knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount);
@@ -57,6 +56,7 @@ public class StandUserListener implements Listener {
 					((Damageable) rightClickedEntity).damage(totalDamage / hitCount);
 					rightClickedEntity.setVelocity(knockbackVector);
 				}
+				
 			}, 0, attackDuration / hitCount);
 			
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -65,7 +65,11 @@ public class StandUserListener implements Listener {
 				public void run() {
 					Bukkit.getScheduler().cancelTask(id);
 				}
+				
 			}, attackDuration);
+			
+//			Remove Iron Ingot from inventory
+			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
 		}
 	}
 
