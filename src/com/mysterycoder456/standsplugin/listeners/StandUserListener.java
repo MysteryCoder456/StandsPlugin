@@ -36,10 +36,10 @@ public class StandUserListener implements Listener {
 	
 	private void starPlatinum(Player player, Entity rightClickedEntity) {
 		
-		double damagePerHit = 4.5;
-		int hitCount = 5;
+		double damagePerHit = Double.parseDouble(config.getString("SP_damagePerHit"));;
+		int hitCount = Integer.parseInt(config.getString("SP_hitCount"));
 		long attackDuration = 20;
-		double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
+		double knockbackMultiplier = Double.parseDouble(config.getString("SP_knockbackMultiplier"));
 		
 		Vector entityVelocity = rightClickedEntity.getVelocity();
 		Vector knockbackVector = player.getLocation().getDirection();
@@ -74,18 +74,35 @@ public class StandUserListener implements Listener {
 	
 	private void magiciansRed(Player player) {
 		
-		int attackPower = 15;
-		double fwSpeedMultiplier = 0.1;
+		int attackPower = Integer.parseInt(config.getString("MR_attackPower"));
+		double fbSpeedMultiplier = Double.parseDouble(config.getString("MR_fireballSpeed"));
 		
-		Location fbSpawnLocation = player.getEyeLocation();
-		Fireball fb = (Fireball) fbSpawnLocation.getWorld().spawnEntity(fbSpawnLocation, EntityType.FIREBALL);
+		int id = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				Location fbSpawnLocation = player.getEyeLocation();
+				
+				Vector fbDirection = fbSpawnLocation.getDirection();
+				fbDirection.multiply(fbSpeedMultiplier);
+				
+				Fireball fb = (Fireball) fbSpawnLocation.getWorld().spawnEntity(fbSpawnLocation, EntityType.FIREBALL);
+				
+				fb.setShooter(player);
+				fb.setDirection(fbDirection);
+				fb.setVelocity(fbDirection);
+			}
+			
+		}, 0, 2);
 		
-		Vector fbDirection = fbSpawnLocation.getDirection();
-//		fbDirection.multiply(fwSpeedMultiplier);
-		
-		fb.setShooter(player);
-//		TODO: Implement fwSpeedMultiplier
-		fb.setDirection(fbDirection);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				Bukkit.getScheduler().cancelTask(id);
+			}
+			
+		}, attackPower * 2);
 		
 	}
 	
@@ -113,7 +130,7 @@ public class StandUserListener implements Listener {
 	@EventHandler
 	public void onPlayerInteractAirEvent(PlayerInteractEvent e) {
 		
-		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		if (e.getAction() == Action.RIGHT_CLICK_AIR) {
 		
 			Player player = e.getPlayer();
 	

@@ -1,5 +1,11 @@
 firstTimeJoinMessage: "&7Stand User &a<player> &7has joined the server for the first time!"
 joinMessage: "&7Stand User &e<player> &7has joined the server!"
 
-# Stand Settings
-knockbackMultiplier: 4
+# Star Platinum Settings
+SP_damagePerHit: 4.5
+SP_hitCount: 5
+SP_knockbackMultiplier: 4
+
+# Magician's Red Settings
+MR_attackPower: 3
+MR_fireballSpeed: 1
