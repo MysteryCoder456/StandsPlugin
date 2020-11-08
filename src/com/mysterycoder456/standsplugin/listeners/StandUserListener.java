@@ -1,21 +1,18 @@
 package com.mysterycoder456.standsplugin.listeners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
 import com.mysterycoder456.standsplugin.Main;
@@ -78,20 +75,14 @@ public class StandUserListener implements Listener {
 		int attackPower = 15;
 		double fwSpeedMultiplier = 0.1;
 		
-		Location fwSpawnLocation = player.getLocation();
-		Firework fw = (Firework) fwSpawnLocation.getWorld().spawnEntity(fwSpawnLocation, EntityType.FIREWORK);
-		FireworkMeta fwm = fw.getFireworkMeta();
+		Location fbSpawnLocation = player.getEyeLocation();
+		Fireball fb = (Fireball) fbSpawnLocation.getWorld().spawnEntity(fbSpawnLocation, EntityType.FIREBALL);
 		
-		fwm.setPower(attackPower);
-		fwm.addEffect(FireworkEffect.builder().withColor(Color.ORANGE).flicker(true).build());
+		Vector fbDirection = fbSpawnLocation.getDirection();
+		fbDirection.multiply(fwSpeedMultiplier);
 		
-		fw.setFireworkMeta(fwm);
-		
-		Vector fwDirection = fwSpawnLocation.getDirection();
-		fwDirection.multiply(fwSpeedMultiplier);
-		
-		fw.setFallDistance(0);
-		fw.setVelocity(fwDirection);
+		fb.setShooter(player);
+		fb.setDirection(fbDirection);
 		
 	}
 	
@@ -99,6 +90,7 @@ public class StandUserListener implements Listener {
 //	Stand Ability listener
 	@EventHandler
 	public void onPlayerInteractEvent(PlayerInteractEntityEvent e) {
+		
 		Player player = e.getPlayer();
 		Entity rightClickedEntity = e.getRightClicked();
 
