@@ -26,6 +26,49 @@ public class StandUserListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 	
+	
+//	Stand Abilities
+	
+	private void starPlatinum(Player player, Entity rightClickedEntity, ItemStack itemInPlayerHand) {
+		double damagePerHit = 4.5;
+		int hitCount = 5;
+		long attackDuration = 20;
+		double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
+		
+		Vector entityVelocity = rightClickedEntity.getVelocity();
+		Vector knockbackVector = player.getLocation().getDirection().normalize();
+		knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount + entityVelocity.getX());
+		knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount + entityVelocity.getY());
+		knockbackVector.setZ((knockbackVector.getZ() * knockbackMultiplier) / hitCount + entityVelocity.getZ());
+		
+		Bukkit.broadcastMessage(Utils.chat("&a" + player.getName() + "'s Star Platinum: &7ORA ORA ORA ORA ORA!"));
+		
+//		Apply damage and knockback
+		int id = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				((Damageable) rightClickedEntity).damage(damagePerHit);
+				rightClickedEntity.setVelocity(knockbackVector);
+			}
+			
+		}, 0, attackDuration / hitCount);
+		
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				Bukkit.getScheduler().cancelTask(id);
+			}
+			
+		}, attackDuration);
+		
+//		Remove Iron Ingot from inventory
+		itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+	}
+	
+	
+//	Stand Ability listener
 	@EventHandler
 	public void onPlayerInteractEvent(PlayerInteractEntityEvent e) {
 		Player player = e.getPlayer();
@@ -36,41 +79,7 @@ public class StandUserListener implements Listener {
 		
 //		Star Platinum
 		if (itemInPlayerHand.getType() == Material.IRON_INGOT) {
-			double damagePerHit = 4.5;
-			int hitCount = 5;
-			long attackDuration = 20;
-			double knockbackMultiplier = Double.parseDouble(config.getString("knockbackMultiplier"));
-			
-			Vector entityVelocity = rightClickedEntity.getVelocity();
-			Vector knockbackVector = player.getLocation().getDirection().normalize();
-			knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount + entityVelocity.getX());
-			knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount + entityVelocity.getY());
-			knockbackVector.setZ((knockbackVector.getZ() * knockbackMultiplier) / hitCount + entityVelocity.getZ());
-			
-			Bukkit.broadcastMessage(Utils.chat("&a" + player.getName() + "'s Star Platinum: &7ORA ORA ORA ORA ORA!"));
-			
-//			Apply damage and knockback
-			int id = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-
-				@Override
-				public void run() {
-					((Damageable) rightClickedEntity).damage(damagePerHit);
-					rightClickedEntity.setVelocity(knockbackVector);
-				}
-				
-			}, 0, attackDuration / hitCount);
-			
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-
-				@Override
-				public void run() {
-					Bukkit.getScheduler().cancelTask(id);
-				}
-				
-			}, attackDuration);
-			
-//			Remove Iron Ingot from inventory
-			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+			starPlatinum(player, rightClickedEntity, itemInPlayerHand);
 		}
 	}
 
