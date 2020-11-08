@@ -11,7 +11,9 @@ import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -70,7 +72,7 @@ public class StandUserListener implements Listener {
 	}
 	
 	
-	private void magiciansRed(Player player, Entity rightClickedEntity) {
+	private void magiciansRed(Player player) {
 		
 		int attackPower = 15;
 		double fwSpeedMultiplier = 0.1;
@@ -87,9 +89,9 @@ public class StandUserListener implements Listener {
 	}
 	
 	
-//	Stand Ability listener
+//	Stand Ability listener on Entities
 	@EventHandler
-	public void onPlayerInteractEvent(PlayerInteractEntityEvent e) {
+	public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent e) {
 		
 		Player player = e.getPlayer();
 		Entity rightClickedEntity = e.getRightClicked();
@@ -103,10 +105,26 @@ public class StandUserListener implements Listener {
 			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
 		}
 		
-//		Magician's Red
-		else if (itemInPlayerHand.getType() == Material.BLAZE_ROD) {
-			magiciansRed(player, rightClickedEntity);
-			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+		return;
+	}
+	
+//	Stand Ability listener on Air
+	@EventHandler
+	public void onPlayerInteractAirEvent(PlayerInteractEvent e) {
+		
+		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+		
+			Player player = e.getPlayer();
+	
+			@SuppressWarnings("deprecation")
+			ItemStack itemInPlayerHand = player.getItemInHand();
+			
+//			Magician's Red
+			if (itemInPlayerHand.getType() == Material.BLAZE_ROD) {
+				magiciansRed(player);
+				itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+			}
+		
 		}
 		
 		return;
