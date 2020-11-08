@@ -81,9 +81,10 @@ public class StandUserListener implements Listener {
 		Fireball fb = (Fireball) fbSpawnLocation.getWorld().spawnEntity(fbSpawnLocation, EntityType.FIREBALL);
 		
 		Vector fbDirection = fbSpawnLocation.getDirection();
-		fbDirection.multiply(fwSpeedMultiplier);
+//		fbDirection.multiply(fwSpeedMultiplier);
 		
 		fb.setShooter(player);
+//		TODO: Implement fwSpeedMultiplier
 		fb.setDirection(fbDirection);
 		
 	}
