@@ -7,3 +7,9 @@ author: rehatbir.singh@gmail.com
 commands:
   hello:
     description: Say hello to the plugin, but mostly used for testing if the plugin is working
+    
+  starplatinum:
+    description: Get help on how to use the Star Platinum Stand
+    
+  magiciansred:
+    description: Get help on how to use the Magician's Red Stand
