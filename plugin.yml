@@ -13,3 +13,6 @@ commands:
     
   magiciansred:
     description: Get help on how to use the Magician's Red Stand
+    
+  zawarudo:
+    description: Get help on how to use the Za Warudo Stand

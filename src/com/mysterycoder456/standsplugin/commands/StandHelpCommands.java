@@ -16,6 +16,7 @@ public class StandHelpCommands implements CommandExecutor {
 		this.plugin = plugin;
 		plugin.getCommand("starplatinum").setExecutor(this);
 		plugin.getCommand("magiciansred").setExecutor(this);
+		plugin.getCommand("zawarudo").setExecutor(this);
 	}
 	
 	@Override
@@ -46,6 +47,18 @@ public class StandHelpCommands implements CommandExecutor {
 				p.sendMessage("Magician's Red's ability is throwing fireballs!");
 				p.sendMessage("To use it, right-click the air with a Blaze Rod in the direction you want to throw the fireball.");
 				p.sendMessage("COST: 1 Blaze Rod");
+				
+				return true;
+			} else {
+				p.sendMessage("You do not have permission to use this command!");
+			}
+		}
+		
+		else if (cmdName.equals("zawarudo")) {
+			if(p.hasPermission("zawarudo.use")) {
+				p.sendMessage("Za Warudo's ability is stopping time!");
+				p.sendMessage("To use it, right-click the air with a Netherite Ingot.");
+				p.sendMessage("COST: 1 Netherite Ingot");
 				
 				return true;
 			} else {
