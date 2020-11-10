@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mysterycoder456.standsplugin.commands.HelloCommand;
 import com.mysterycoder456.standsplugin.commands.StandHelpCommands;
+import com.mysterycoder456.standsplugin.listeners.DeathListener;
 import com.mysterycoder456.standsplugin.listeners.JoinListener;
 import com.mysterycoder456.standsplugin.listeners.StandUserListener;
 
@@ -15,6 +16,7 @@ public class Main extends JavaPlugin {
 		
 //		Listeners
 		new JoinListener(this);
+		new DeathListener(this);
 		new StandUserListener(this);
 		
 //		Commands

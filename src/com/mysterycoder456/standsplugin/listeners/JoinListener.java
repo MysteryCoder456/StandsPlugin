@@ -25,10 +25,10 @@ public class JoinListener implements Listener {
 		FileConfiguration config = plugin.getConfig();
 		
 		if (!player.hasPlayedBefore()) {
-			e.setJoinMessage(Utils.chat(config.getString("firstTimeJoinMessage").replace("<player>", player.getName())));
+			e.setJoinMessage(Utils.chat(config.getString("firstTimeJoinMessage").replace("<player>", player.getDisplayName())));
 		}
 		else {
-			e.setJoinMessage(Utils.chat(config.getString("joinMessage").replace("<player>", player.getName())));
+			e.setJoinMessage(Utils.chat(config.getString("joinMessage").replace("<player>", player.getDisplayName())));
 		}
 	}
 

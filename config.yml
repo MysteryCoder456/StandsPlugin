@@ -1,5 +1,6 @@
 firstTimeJoinMessage: "&7Stand User &a<player> &7has joined the server for the first time!"
 joinMessage: "&7Stand User &e<player> &7has joined the server!"
+deathMessage: "&7Stand User &e<player> &7has been killed by Stand User &e<killer>!"
 
 # Star Platinum Settings
 SP_damagePerHit: 4.5

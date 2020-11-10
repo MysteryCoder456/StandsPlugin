@@ -47,7 +47,7 @@ public class StandUserListener implements Listener {
 		knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount + entityVelocity.getY());
 		knockbackVector.setZ((knockbackVector.getZ() * knockbackMultiplier) / hitCount + entityVelocity.getZ());
 		
-		Bukkit.broadcastMessage(Utils.chat("&a" + player.getName() + "'s Star Platinum: &7ORA ORA ORA ORA ORA!"));
+		Bukkit.broadcastMessage(Utils.chat("&a" + player.getDisplayName() + "'s Star Platinum: &7ORA ORA ORA ORA ORA!"));
 		
 //		Apply damage and knockback
 		int id = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
