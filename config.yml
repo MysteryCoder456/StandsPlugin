@@ -10,3 +10,6 @@ SP_knockbackMultiplier: 4
 # Magician's Red Settings
 MR_attackPower: 3
 MR_fireballSpeed: 1
+
+# Za Warudo Settings
+ZW_timeStopDuration: 5
