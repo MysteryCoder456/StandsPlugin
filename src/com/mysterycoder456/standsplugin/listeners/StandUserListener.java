@@ -119,7 +119,9 @@ public class StandUserListener implements Listener {
 		PotionEffect slowness = new PotionEffect(PotionEffectType.SLOW, timeStopDuration, 2147483646);
 		PotionEffect slowDigging = new PotionEffect(PotionEffectType.SLOW_DIGGING, timeStopDuration, 2147483647);
 		PotionEffect slowFalling = new PotionEffect(PotionEffectType.SLOW_FALLING, timeStopDuration, 2147483647);
-		PotionEffect weekness = new PotionEffect(PotionEffectType.WEAKNESS, timeStopDuration, 2147483647);
+		PotionEffect weakness = new PotionEffect(PotionEffectType.WEAKNESS, timeStopDuration, 2147483647);
+		PotionEffect strength = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, timeStopDuration, 2147483647);
+		PotionEffect blindness = new PotionEffect(PotionEffectType.BLINDNESS, timeStopDuration, 2147483647);
 		
 		Bukkit.broadcastMessage(Utils.chat("&a" + player.getDisplayName() + ": &7ZA WARUDO!"));
 		Bukkit.broadcastMessage(Utils.chat("&7Time has been stopped!"));
@@ -143,7 +145,40 @@ public class StandUserListener implements Listener {
 			livingEntity.addPotionEffect(slowness);
 			livingEntity.addPotionEffect(slowDigging);
 			livingEntity.addPotionEffect(slowFalling);
-			livingEntity.addPotionEffect(weekness);
+			livingEntity.addPotionEffect(blindness);
+			
+			switch (entity.getType()) {
+			
+//			Undead mobs
+			case ZOMBIE:
+				livingEntity.addPotionEffect(strength);
+				break;
+
+			case SPIDER:
+				livingEntity.addPotionEffect(strength);
+				break;
+				
+			case SKELETON:
+				livingEntity.addPotionEffect(strength);
+				break;
+				
+			case CAVE_SPIDER:
+				livingEntity.addPotionEffect(strength);
+				break;
+				
+			case ZOMBIE_VILLAGER:
+				livingEntity.addPotionEffect(strength);
+				break;
+				
+			case ZOMBIFIED_PIGLIN:
+				livingEntity.addPotionEffect(strength);
+				break;
+			
+//			Players / Normal mobs
+			default:
+				livingEntity.addPotionEffect(weakness);
+				
+			}
 			
 		}
 				
