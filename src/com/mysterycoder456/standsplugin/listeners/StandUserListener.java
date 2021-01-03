@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityCategory;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.LivingEntity;
@@ -147,37 +148,11 @@ public class StandUserListener implements Listener {
 			livingEntity.addPotionEffect(slowFalling);
 			livingEntity.addPotionEffect(blindness);
 			
-			switch (entity.getType()) {
-			
-//			Undead mobs
-			case ZOMBIE:
+			if (livingEntity.getCategory().equals(EntityCategory.UNDEAD)) {
 				livingEntity.addPotionEffect(strength);
-				break;
-
-			case SPIDER:
-				livingEntity.addPotionEffect(strength);
-				break;
-				
-			case SKELETON:
-				livingEntity.addPotionEffect(strength);
-				break;
-				
-			case CAVE_SPIDER:
-				livingEntity.addPotionEffect(strength);
-				break;
-				
-			case ZOMBIE_VILLAGER:
-				livingEntity.addPotionEffect(strength);
-				break;
-				
-			case ZOMBIFIED_PIGLIN:
-				livingEntity.addPotionEffect(strength);
-				break;
-			
-//			Players / Normal mobs
-			default:
+			}
+			else {
 				livingEntity.addPotionEffect(weakness);
-				
 			}
 			
 		}
