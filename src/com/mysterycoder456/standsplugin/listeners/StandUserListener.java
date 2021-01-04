@@ -1,8 +1,10 @@
 package com.mysterycoder456.standsplugin.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Damageable;
@@ -39,14 +41,14 @@ public class StandUserListener implements Listener {
 	
 //	Stand Abilities
 	
-	private void starPlatinum(Player player, Entity rightClickedEntity) {
+	private void starPlatinum(Player player, Entity entity) {
 		
 		double damagePerHit = Double.parseDouble(config.getString("SP_damagePerHit"));;
 		int hitCount = Integer.parseInt(config.getString("SP_hitCount"));
 		long attackDuration = 20;
 		double knockbackMultiplier = Double.parseDouble(config.getString("SP_knockbackMultiplier"));
 		
-		Vector entityVelocity = rightClickedEntity.getVelocity();
+		Vector entityVelocity = entity.getVelocity();
 		Vector knockbackVector = player.getLocation().getDirection();
 		knockbackVector.setX((knockbackVector.getX() * knockbackMultiplier) / hitCount + entityVelocity.getX());
 		knockbackVector.setY((knockbackVector.getY() * knockbackMultiplier + 1) / hitCount + entityVelocity.getY());
@@ -59,8 +61,8 @@ public class StandUserListener implements Listener {
 
 			@Override
 			public void run() {
-				((Damageable) rightClickedEntity).damage(damagePerHit);
-				rightClickedEntity.setVelocity(knockbackVector);
+				((Damageable) entity).damage(damagePerHit);
+				entity.setVelocity(knockbackVector);
 			}
 			
 		}, 0, attackDuration / hitCount);
@@ -168,6 +170,19 @@ public class StandUserListener implements Listener {
 		
 	}
 	
+	private void shiningDiamond(LivingEntity entity) {
+		
+		int regenDuration = Integer.parseInt(config.getString("SD_regenerationDuration")) * 20; // times 20 to convert from seconds to ticks
+		int regenLevel = Integer.parseInt(config.getString("SD_regenerationLevel"));
+		World world = entity.getWorld();
+		
+		PotionEffect regen = new PotionEffect(PotionEffectType.REGENERATION, regenDuration, regenLevel);
+		entity.addPotionEffect(regen);
+		
+		world.playEffect(entity.getLocation(), Effect.BLAZE_SHOOT, 20);
+		
+	}
+	
 	
 //	Stand Ability listener on Entities
 	@EventHandler
@@ -179,10 +194,22 @@ public class StandUserListener implements Listener {
 		@SuppressWarnings("deprecation")
 		ItemStack itemInPlayerHand = player.getItemInHand();
 		
+		switch (itemInPlayerHand.getType()) {
+		
 //		Star Platinum
-		if (itemInPlayerHand.getType() == Material.IRON_INGOT) {
+		case IRON_INGOT:
 			starPlatinum(player, rightClickedEntity);
 			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+			break;
+			
+		case DIAMOND:
+			shiningDiamond((LivingEntity) rightClickedEntity);
+			itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+			break;
+			
+		default:
+			break;
+			
 		}
 		
 		return;
@@ -199,16 +226,23 @@ public class StandUserListener implements Listener {
 			@SuppressWarnings("deprecation")
 			ItemStack itemInPlayerHand = player.getItemInHand();
 			
+			switch (itemInPlayerHand.getType()) {
+			
 //			Magician's Red
-			if (itemInPlayerHand.getType() == Material.BLAZE_ROD) {
+			case BLAZE_ROD:
 				magiciansRed(player);
 				itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
-			}
+				break;
 			
 //			Za Warudo
-			else if (itemInPlayerHand.getType() == Material.NETHERITE_INGOT) {
+			case NETHERITE_INGOT:
 				zaWarudo(player);
 				itemInPlayerHand.setAmount(itemInPlayerHand.getAmount() - 1);
+				break;
+				
+			default:
+				break;
+				
 			}
 		
 		}

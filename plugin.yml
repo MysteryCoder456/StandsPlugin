@@ -17,3 +17,6 @@ commands:
     
   zawarudo:
     description: Get help on how to use the Za Warudo Stand
+    
+  shiningdiamond:
+    description: Get help on how to use the Shining Diamond Stand

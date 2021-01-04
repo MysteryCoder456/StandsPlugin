@@ -17,6 +17,7 @@ public class StandHelpCommands implements CommandExecutor {
 		plugin.getCommand("starplatinum").setExecutor(this);
 		plugin.getCommand("magiciansred").setExecutor(this);
 		plugin.getCommand("zawarudo").setExecutor(this);
+		plugin.getCommand("shiningdiamond").setExecutor(this);
 	}
 	
 	@Override
@@ -59,6 +60,18 @@ public class StandHelpCommands implements CommandExecutor {
 				p.sendMessage("Za Warudo's ability is stopping time!");
 				p.sendMessage("To use it, right-click the air with a Netherite Ingot.");
 				p.sendMessage("COST: 1 Netherite Ingot");
+				
+				return true;
+			} else {
+				p.sendMessage("You do not have permission to use this command!");
+			}
+		}
+		
+		else if (cmdName.equals("shiningdiamond")) {
+			if(p.hasPermission("shiningdiamond.use")) {
+				p.sendMessage("Shining Diamond's ability is to heal entities!");
+				p.sendMessage("To use it, right-click the air with a Diamond.");
+				p.sendMessage("COST: 1 Diamond");
 				
 				return true;
 			} else {

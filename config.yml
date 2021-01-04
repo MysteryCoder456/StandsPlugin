@@ -13,3 +13,7 @@ MR_fireballSpeed: 1
 
 # Za Warudo Settings
 ZW_timeStopDuration: 5
+
+# Shining Diamond Settings
+SD_regenerationLevel: 3
+SD_regenerationDuration: 5
